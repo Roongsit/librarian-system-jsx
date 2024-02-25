@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Nav from "./Nav";
-import Swal from 'sweetalert2'
+import Swal from "sweetalert2";
 import {
   getDocs,
   collection,
@@ -53,62 +53,79 @@ function BorrowList() {
       const borrowRef = doc(db, "borrow", borrow_id);
       await deleteDoc(borrowRef);
       Swal.fire({
-        title: 'ลบข้อมูลสำเร็จ!',
-        icon: 'success',
-        confirmButtonText: 'ยืนยัน'
-      })
+        title: "ลบข้อมูลสำเร็จ!",
+        icon: "success",
+        confirmButtonText: "ยืนยัน",
+      });
 
       showBorrow();
     } catch (error) {
       Swal.fire({
-        title: 'ลบข้อมูลไม่สำเร็จ!',
-        icon: 'error',
-        confirmButtonText: 'ยืนยัน'
-      })
-
+        title: "ลบข้อมูลไม่สำเร็จ!",
+        icon: "error",
+        confirmButtonText: "ยืนยัน",
+      });
     }
   };
 
   return (
     <>
       <Nav />
-      <div className=" container font-sarabun mx-auto my-4 p-4">
-        <div className="container mx-auto py-10">
-          <h1 className="text-3xl font-bold text-gray-800 mb-8">รายชื่อสมาชิกที่ยืมหนังสือ</h1>
-          <div className="bg-white p-8 rounded-md">
-            {borrowList.length > 0 ? (
-              borrowList.map((data, index) => (
-                <div
-                  key={data.id}
-                  className="mb-6 p-6 shadow-lg rounded-lg bg-white"
-                >
-                  <div className="flex justify-between items-center mb-4">
-                    <div>
-                      <h2 className="text-xl font-bold text-gray-800">
-                        {data.memberName} {data.memberSurname}
-                      </h2>
-                      <p className="text-gray-600">รหัสหนังสือ: {data.bookID}</p>
-                      <p className="text-gray-600">
-                        วันที่ยืม: {data.borrowCurrentDate}
-                      </p>
-                      <p className="text-gray-600">
-                        วันที่ต้องคืน: {data.borrowLastestDate}
-                      </p>
+      <div className="container mx-auto my-4 p-4">
+        <div className="flex justify-between items-center mb-6">
+          <h1 className="text-2xl font-semibold text-gray-800">
+            รายชื่อสมาชิกที่ยืมหนังสือ
+          </h1>
+        </div>
+
+        <div className="flex justify-between items-center mb-6">
+          <div className="bg-white shadow overflow-hidden sm:rounded-lg w-full">
+            <ul className="divide-y divide-gray-200">
+              {borrowList.length > 0 ? (
+                borrowList.map((data, index) => (
+                  <li key={data.id} >
+                    <div className="px-4 py-4 sm:px-6">
+                      <div className="flex items-center justify-between">
+                        <p className="text-lg font-medium text-indigo-600 truncate">
+                          Name: {data.memberName} {data.memberSurname}
+                        </p>
+                        <div className="ml-2 flex-shrink-0 flex mb-4">
+                        <button
+                          className="bg-red-500 hover:bg-red-600 text-white font-bold py-3 px-5 rounded text-xs ml-2"
+                          onClick={() => deleteBorrow(data.id, data.bookID)}
+                        >
+                          Delete
+                        </button>
+                        
+                      
+                        </div>
+                      </div>
+
+                      <div className="flex items-centerjustify-start ">
+                      <p className="text-gray-600 ">
+                          รหัสหนังสือ: {data.bookID}
+                        </p>
+                        <p className="text-gray-600 sm:mt-0 sm:ml-6">
+                          วันที่ยืม: {data.borrowCurrentDate}
+                        </p>
+                        <p className="text-gray-600 sm:mt-0 sm:ml-6">
+                          วันที่ต้องคืน: {data.borrowLastestDate}
+                        </p>
+                        </div>
+
+                     
+                    
                     </div>
-                    <div>
-                      <button
-                        className="text-white bg-red-500 hover:bg-red-600 px-4 py-2 rounded-md focus:outline-none"
-                        onClick={() => deleteBorrow(data.id, data.bookID)}
-                      >
-                        Delete
-                      </button>
-                    </div>
+                  </li>
+                ))
+              ) : (
+                <li>
+                  <div className="text-center text-gray-500">
+                    No borrows found
                   </div>
-                </div>
-              ))
-            ) : (
-              <div className="text-center text-gray-500">No borrows found</div>
-            )}
+                </li>
+              )}
+            </ul>
           </div>
         </div>
       </div>

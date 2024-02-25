@@ -34,17 +34,16 @@ function Member() {
       await deleteDoc(doc(db, "members", id));
       setMemberList(memberList.filter((member) => member.id !== id));
       Swal.fire({
-        title: 'ลบข้อมูลสำเร็จ!',
-        icon: 'success',
-        confirmButtonText: 'ยืนยัน'
-      })
-
+        title: "ลบข้อมูลสำเร็จ!",
+        icon: "success",
+        confirmButtonText: "ยืนยัน",
+      });
     } catch (error) {
       Swal.fire({
-        title: 'ลบข้อมูลไม่สำเร็จ!',
-        icon: 'error',
-        confirmButtonText: 'ยืนยัน'
-      })
+        title: "ลบข้อมูลไม่สำเร็จ!",
+        icon: "error",
+        confirmButtonText: "ยืนยัน",
+      });
     }
   };
 
@@ -61,6 +60,7 @@ function Member() {
             Add Member
           </Link>
         </div>
+
         <div className="bg-white shadow overflow-hidden sm:rounded-lg">
           <ul className="divide-y divide-gray-200">
             {memberList.length > 0 ? (
@@ -68,7 +68,7 @@ function Member() {
                 <li key={data.id}>
                   <div className="px-4 py-4 sm:px-6">
                     <div className="flex items-center justify-between">
-                      <p className="text-sm font-medium text-indigo-600 truncate">
+                      <p className="text-lg font-medium text-indigo-600 truncate">
                         Name: {data.memberName} {data.memberSurname}
                       </p>
                       <div className="ml-2 flex-shrink-0 flex">
