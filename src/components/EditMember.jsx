@@ -3,6 +3,7 @@ import { db } from "../firebase";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import Nav from "./Nav";
 import { useNavigate } from "react-router-dom";
+import Swal from 'sweetalert2'
 
 function EditMember() {
   const searchParams = new URLSearchParams(window.location.search);
@@ -50,11 +51,20 @@ function EditMember() {
         memberAddress,
         memberPhone_number,
       });
-      alert("Member updated successfully!");
+      Swal.fire({
+        title: 'เปลี่ยนแปลงข้อมูลสำเร็จ!',
+        icon: 'success',
+        confirmButtonText: 'ยืนยัน'
+      })
+
       navigate('/member')
     } catch (error) {
-      console.error("Error updating document:", error);
-      alert("Error updating member!");
+      Swal.fire({
+        title: 'เปลี่ยนแปลงข้อมูลไม่สำเร็จ!',
+        icon: 'error',
+        confirmButtonText: 'ยืนยัน'
+      })
+
     }
   };
 

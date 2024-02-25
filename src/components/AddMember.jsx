@@ -69,15 +69,20 @@ function Member() {
     return (
     <div>
       <Nav />
+
+
       <div className="flex items-center justify-center min-h-screen bg-gray-100">
         <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-xl">
           <form onSubmit={addMember} className="space-y-4">
+
+
+            
             <div>
               <label htmlFor="memberID" className="block text-sm font-medium text-gray-700">Member ID</label>
               <input
                 id="memberID"
                 type="number"
-                placeholder="Member ID"
+                placeholder="รหัสสมาชิก"
                 className="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                 value={memberID}
                 onChange={(e) => setMemberID(e.target.value)}

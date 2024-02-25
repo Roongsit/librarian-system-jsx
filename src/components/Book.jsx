@@ -34,10 +34,18 @@ function Book() {
     try {
       await deleteDoc(doc(db, "book", id));
       setBookList(bookList.filter((book) => book.id !== id));
-      alert("Document successfully deleted!");
-      console.log("Document successfully deleted!");
+      Swal.fire({
+        title: 'ลบข้อมูลสำเร็จ!',
+        icon: 'success',
+        confirmButtonText: 'ยืนยัน'
+      });
     } catch (error) {
-      console.error("Error deleting document: ", error);
+      Swal.fire({
+        title: 'ลบข้อมูลไม่สำเร็จ!',
+        icon: 'error',
+        confirmButtonText: 'ยืนยัน'
+      });
+
     }
   };
 
