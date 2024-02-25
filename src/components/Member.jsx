@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { AiOutlinePlus } from 'react-icons/ai';
 import Nav from "./Nav";
 import { query, getDocs, collection, doc, deleteDoc } from "firebase/firestore";
 import { db } from "../firebase";
@@ -51,38 +52,39 @@ function Member() {
     <>
       <Nav />
       <div className="container mx-auto my-4 p-4">
-        <div className="flex justify-between items-center mb-6">
-          <h1 className="text-2xl font-semibold text-gray-800">Members</h1>
+        
+        <h1 className="text-2xl font-semibold text-gray-800 mb-4">รายชื่อสมาชิก</h1>
+        
           <Link
             to="/add_member"
-            className="bg-blue-500 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded"
+            className="inline-block px-2  py-1 bg-transparent border-2 border-green-500 text-green-500 text-sm rounded-full transition-colors duration-700 transform hover:bg-green-500 hover:text-gray-100 focus:border-4 focus:border-green-300"
           >
-            Add Member
+            <AiOutlinePlus className="inline-block m-1 " /> เพิ่มสมาชิก
           </Link>
-        </div>
+          
 
-        <div className="bg-white shadow overflow-hidden sm:rounded-lg">
+        <div className="mt-3 bg-white shadow overflow-hidden sm:rounded-lg">
           <ul className="divide-y divide-gray-200">
             {memberList.length > 0 ? (
               memberList.map((data, index) => (
                 <li key={data.id}>
                   <div className="px-4 py-4 sm:px-6">
                     <div className="flex items-center justify-between">
-                      <p className="text-lg font-medium text-indigo-600 truncate">
+                      <p className="text-lg font-medium text-[#47BA6E] ">
                         Name: {data.memberName} {data.memberSurname}
                       </p>
                       <div className="ml-2 flex-shrink-0 flex">
                         <Link
                           to={`/edit_member?id=${encodeURIComponent(data.id)}`}
-                          className="bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-5 rounded text-xs "
+                          className="w-20 bg-blue-500 hover:bg-green-600 text-white py-1 px-4 mx-2 rounded-full transition duration-300 ease-in-out text-center "
                         >
-                          Edit
+                          แก้ไข
                         </Link>
                         <button
                           onClick={() => deleteMember(data.id)}
-                          className="bg-red-500 hover:bg-red-600 text-white font-bold py-3 px-5 rounded text-xs ml-2 "
+                          className="w-20 bg-red-500 hover:bg-red-600 text-white  py-1 px-4 mx-2 rounded-full transition duration-300 ease-in-out text-center "
                         >
-                          Delete
+                          ลบ
                         </button>
                       </div>
                     </div>
@@ -92,7 +94,7 @@ function Member() {
                           ID: {data.memberID}
                         </p>
                         <p className="mt-2 flex items-center text-sm text-gray-500 sm:mt-0 sm:ml-6">
-                          Address: {data.memberAddress}
+                          Email: {data.memberAddress}
                         </p>
                         <p className="mt-2 flex items-center text-sm text-gray-500 sm:mt-0 sm:ml-6">
                           Number: {data.memberPhone_number}
@@ -105,7 +107,7 @@ function Member() {
             ) : (
               <li>
                 <div className="px-4 py-4 sm:px-6 text-center">
-                  No members available
+                  ไม่มีข้อมูลสมาชิก
                 </div>
               </li>
             )}

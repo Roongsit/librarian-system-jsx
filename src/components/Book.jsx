@@ -3,6 +3,7 @@ import Nav from "./Nav";
 import { db } from "../firebase";
 import { query, getDocs, collection } from "firebase/firestore";
 import { Link } from "react-router-dom";
+import { AiOutlinePlus } from 'react-icons/ai';
 import Swal from "sweetalert2";
 
 // Delete
@@ -60,36 +61,36 @@ function Book() {
     <>
       <Nav />
       <div className="font-sarabun container mx-auto px-4 py-8">
-        <div className="flex  justify-start items-center">
+        <div className="flex  justify-start items-center mb-6">
           <Link
             to="/add_book"
-            className="inline-block m-4 text-white text-sm bg-green-500 hover:bg-green-600 p-2 rounded-full transition duration-300 ease-in-out"
+            className="inline-block px-2  py-1 bg-transparent border-2 border-green-500 text-green-500 text-sm rounded-full transition-colors duration-700 transform hover:bg-green-500 hover:text-gray-100 focus:border-4 focus:border-green-300"
           >
-            เพิ่มรายการหนังสือ
+            <AiOutlinePlus className="inline-block m-1" />  เพิ่มรายการหนังสือ  
           </Link>
           <Link
             to="/category"
-            className="inline-block m-4 text-white text-sm bg-green-500 hover:bg-green-600 p-2 rounded-full transition duration-300 ease-in-out"
+            className="inline-block px-2  py-1 ml-3 bg-transparent border-2 border-green-500 text-green-500 text-sm rounded-full transition-colors duration-700 transform hover:bg-green-500 hover:text-gray-100 focus:border-4 focus:border-green-300"
           >
-            เพิ่มหมวดหมู่
+           <AiOutlinePlus className="inline-block m-1" /> เพิ่มหมวดหมู่
           </Link>
 
           <input
             type="text"
-            className="  shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ml-auto"
-            placeholder="Search for books..."
+            className="  drop-shadow-md appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ml-auto"
+            placeholder="ค้นหาชื่อหนังสือ..."
             onChange={(e) => setSearchTerm(e.target.value)}
             style={{ justifySelf: "end" }}
           />
         </div>
 
         <div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 drop-shadow-2xl">
             {filteredBooks &&
               filteredBooks.map((data, index) => (
                 <div
                   key={index}
-                  className="block p-4 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out"
+                  className="block p-4 rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300 ease-in-out"
                   style={{ backgroundColor: "#F3F4F6" }}
                 >
                   <h1
@@ -123,19 +124,19 @@ function Book() {
                   <div className="  flex  mt-4 space-x-2">
                     <Link
                       to={`/edit_book?id=${encodeURIComponent(data.id)}`}
-                      className="flex-grow bg-blue-500 hover:bg-blue-600 text-white py-1 px-4 rounded transition duration-300 ease-in-out text-center"
+                      className="flex-grow bg-blue-500 hover:bg-blue-600 text-white py-1 px-2 mx-2 rounded-full transition duration-300 ease-in-out text-center"
                     >
                       เเก้ไข
                     </Link>
                     <button
                       onClick={() => deleteBook(data.id)}
-                      className="flex-grow bg-red-500 hover:bg-red-600 text-white py-1 px-4 rounded transition duration-300 ease-in-out"
+                      className="flex-grow bg-red-500 hover:bg-red-600 text-white py-1 px-2 mx-2 rounded-full transition duration-300 ease-in-out"
                     >
                       ลบ
                     </button>
                     <Link
                       to={`/borrowing?id=${encodeURIComponent(data.id)}`}
-                      className="flex-grow bg-green-500 hover:bg-green-600 text-white py-1 px-4 rounded transition duration-300 ease-in-out text-center"
+                      className="flex-grow bg-green-500 hover:bg-green-600 text-white py-1 px-2 mx-2 rounded-full transition duration-300 ease-in-out text-center"
                     >
                       ยืมหนังสือ
                     </Link>

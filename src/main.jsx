@@ -6,7 +6,6 @@ import "./index.css"
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import Home from "./components/Home.jsx";
-import Login from "./components/Login.jsx";
 import Register from "./components/Register.jsx";
 import ProtectedRoute from "./auth/ProtectedRoute.jsx";
 import Book from "./components/Book.jsx";
@@ -23,10 +22,6 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
-  },
-  {
-    path: "/login",
-    element: <Login />,
   },
   {
     path: "/register",

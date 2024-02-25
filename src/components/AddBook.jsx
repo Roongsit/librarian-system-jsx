@@ -91,12 +91,12 @@ function Addbook() {
       <Nav />
 
       <div className="flex items-center justify-center min-h-screen bg-gray-100">
-        <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-xl">
+        <div className="drop-shadow-xl w-full max-w-md p-8 bg-white rounded-lg shadow-xl">
           <form onSubmit={addBook} className="space-y-4">
             <div>
               <label
                 htmlFor="bookID"
-                className="block text-sm font-medium text-gray-700"
+                className="block text-md font-medium text-gray-700"
               >
                 Book ID
               </label>
@@ -104,7 +104,7 @@ function Addbook() {
                 id="bookID"
                 type="text"
                 placeholder="รหัสหนังสือ"
-                className="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                className="mt-1 block w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-[#77BA47]"
                 value={bookID}
                 onChange={(e) => setBookID(e.target.value)}
               />
@@ -112,22 +112,22 @@ function Addbook() {
             <div>
               <label
                 htmlFor="bookName"
-                className="block text-sm font-medium text-gray-700"
+                className="block text-md font-medium text-gray-700"
               >
-                book Name
+                Book Name
               </label>
               <input
                 id="bookName"
                 type="text"
                 placeholder="ชื่อหนังสือ"
-                className="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                className="mt-1 block w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-[#77BA47]"
                 value={bookName}
                 onChange={(e) => setBookName(e.target.value)}
               />
             </div>
             <label
               htmlFor="book-category"
-              className="block text-sm font-medium text-gray-700"
+              className="block text-md font-medium text-gray-700"
             >
               Book Category
             </label>
@@ -135,7 +135,7 @@ function Addbook() {
               id="book-category"
               name="bookCategory"
               required
-              className="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+              className="mt-1 block w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-[#77BA47]"
               value={bookCategory}
               onChange={(e) => setBookCategory(e.target.value)}
             >
@@ -149,7 +149,7 @@ function Addbook() {
             <div>
               <label
                 htmlFor="bookCount"
-                className="block text-sm font-medium text-gray-700"
+                className="block text-md font-medium text-gray-700"
               >
                 Book Count
               </label>
@@ -157,7 +157,7 @@ function Addbook() {
                 id="bookCount"
                 type="number"
                 placeholder="จำนวนเล่ม"
-                className="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                className="mt-1 block w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-[#77BA47]"
                 value={bookCount}
                 onChange={(e) => setBookCount(e.target.value)}
               />
@@ -171,7 +171,7 @@ function Addbook() {
                 name="bookImg"
                 type="file"
                 required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
+                className="appearance-none rounded-none relative block w-full px-4 py-2 border  text-gray-700 focus:outline-none focus:border-[#77BA47]"
                 accept=".jpg, .jpeg, .png" // Accept JPEG and PNG files
                 onChange={(e) => {
                   const file = e.target.files[0];
@@ -191,9 +191,9 @@ function Addbook() {
             <div>
               <button
                 type="submit"
-                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium  text-white bg-blue-500 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                className="w-full flex justify-center px-4 py-2 bg-[#47BA6E] text-white rounded-lg hover:bg-[#77BA47] transition"
               >
-                Add Member
+                Add Book
               </button>
             </div>
           </form>

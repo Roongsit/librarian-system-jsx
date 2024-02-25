@@ -86,15 +86,15 @@ function BorrowList() {
                   <li key={data.id} >
                     <div className="px-4 py-4 sm:px-6">
                       <div className="flex items-center justify-between">
-                        <p className="text-lg font-medium text-indigo-600 truncate">
+                        <p className="text-lg font-medium text-[#47BA6E] truncate">
                           Name: {data.memberName} {data.memberSurname}
                         </p>
                         <div className="ml-2 flex-shrink-0 flex mb-4">
                         <button
-                          className="bg-red-500 hover:bg-red-600 text-white font-bold py-3 px-5 rounded text-xs ml-2"
+                          className="w-20 bg-red-500 hover:bg-red-600 text-white py-1 px-6 mx-2 rounded-full transition duration-300 ease-in-out"
                           onClick={() => deleteBorrow(data.id, data.bookID)}
                         >
-                          Delete
+                          ลบ
                         </button>
                         
                       
@@ -121,7 +121,7 @@ function BorrowList() {
               ) : (
                 <li>
                   <div className="text-center text-gray-500">
-                    No borrows found
+                    ไม่มีข้อมูลการยืมหนังสือ
                   </div>
                 </li>
               )}

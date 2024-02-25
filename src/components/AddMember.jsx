@@ -78,62 +78,62 @@ function Member() {
 
             
             <div>
-              <label htmlFor="memberID" className="block text-sm font-medium text-gray-700">Member ID</label>
+              <label htmlFor="memberID" className="block text-mb font-medium text-gray-700">Member ID</label>
               <input
                 id="memberID"
                 type="number"
                 placeholder="รหัสสมาชิก"
-                className="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                className="mt-1 block w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-[#77BA47]"
                 value={memberID}
                 onChange={(e) => setMemberID(e.target.value)}
               />
             </div>
             <div>
-              <label htmlFor="firstName" className="block text-sm font-medium text-gray-700">First Name</label>
+              <label htmlFor="firstName" className="block text-md font-medium text-gray-700">First Name</label>
               <input
                 id="firstName"
                 type="text"
                 placeholder="ชื่อจริง"
-                className="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                className="mt-1 block w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-[#77BA47]"
                 value={memberName}
                 onChange={(e) => setMemberName(e.target.value)}
               />
             </div>
             <div>
-              <label htmlFor="lastName" className="block text-sm font-medium text-gray-700">Last Name</label>
+              <label htmlFor="lastName" className="block text-md font-medium text-gray-700">Last Name</label>
               <input
                 id="lastName"
                 type="text"
                 placeholder="นามสกุล"
-                className="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                className="mt-1 block w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-[#77BA47]"
                 value={memberSurname}
                 onChange={(e) => setMemberSurname(e.target.value)}
               />
             </div>
             <div>
-              <label htmlFor="address" className="block text-sm font-medium text-gray-700">Email</label>
+              <label htmlFor="address" className="block text-md font-medium text-gray-700">Email</label>
               <input
                 id="address"
                 type="text"
                 placeholder="อีเมล"
-                className="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                className="mt-1 block w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-[#77BA47]"
                 value={memberAddress}
                 onChange={(e) => setMemberAddress(e.target.value)}
               />
             </div>
             <div>
-              <label htmlFor="phoneNumber" className="block text-sm font-medium text-gray-700">Phone Number</label>
+              <label htmlFor="phoneNumber" className="block text-md font-medium text-gray-700">Phone Number</label>
               <input
                 id="phoneNumber"
                 type="text"
                 placeholder="เบอร์โทรศัพท์"
-                className="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                className="mt-1 block w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-[#77BA47]"
                 value={memberPhone_number}
                 onChange={(e) => setMemberPhone_number(e.target.value)}
               />
             </div>
             <div>
-              <button type="submit" className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+              <button type="submit" className="w-full flex justify-center px-4 py-2 bg-[#47BA6E] text-white rounded-lg hover:bg-[#77BA47] transition">
                 Add Member
               </button>
             </div>

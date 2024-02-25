@@ -1,9 +1,16 @@
 import React, { useState, useEffect } from "react";
 import Nav from "./Nav";
 import { db } from "../firebase";
-import { collection, addDoc, query, getDocs, deleteDoc ,doc } from "firebase/firestore";
-import Swal from 'sweetalert2'
-
+import {
+  collection,
+  addDoc,
+  query,
+  getDocs,
+  deleteDoc,
+  doc,
+} from "firebase/firestore";
+import Swal from "sweetalert2";
+import { AiOutlinePlus } from "react-icons/ai";
 function Category() {
   const [categoryInput, setCategoryInput] = useState("");
   const [categoryList, setCategoryList] = useState([]);
@@ -37,11 +44,11 @@ function Category() {
     e.preventDefault();
     if (!categoryInput.trim()) {
       Swal.fire({
-        title: 'เพิ่มไม่สำเร็จ!',
-        text: 'กรุณาใส่ข้อมูลให้ครบถ้วน',
-        icon: 'error',
-        confirmButtonText: 'ยืนยัน'
-      })
+        title: "เพิ่มไม่สำเร็จ!",
+        text: "กรุณาใส่ข้อมูลให้ครบถ้วน",
+        icon: "error",
+        confirmButtonText: "ยืนยัน",
+      });
 
       return;
     }
@@ -54,18 +61,16 @@ function Category() {
       setCategoryInput("");
       fetchCategories();
       Swal.fire({
-        title: 'เพิ่มข้อมูลสำเร็จ!',
-        icon: 'success',
-        confirmButtonText: 'ยืนยัน'
-      })
-
+        title: "เพิ่มข้อมูลสำเร็จ!",
+        icon: "success",
+        confirmButtonText: "ยืนยัน",
+      });
     } catch (err) {
       Swal.fire({
-        title: 'เพิ่มข้อมูลไม่สำเร็จ!',
-        icon: 'error',
-        confirmButtonText: 'ยืนยัน'
-      })
-
+        title: "เพิ่มข้อมูลไม่สำเร็จ!",
+        icon: "error",
+        confirmButtonText: "ยืนยัน",
+      });
     } finally {
       setLoading(false);
     }
@@ -78,18 +83,16 @@ function Category() {
       await deleteDoc(doc(db, "category", categoryId));
       fetchCategories();
       Swal.fire({
-        title: 'ลบข้อมูลสำเร็จ!',
-        icon: 'success',
-        confirmButtonText: 'ยืนยัน'
-      })
-
+        title: "ลบข้อมูลสำเร็จ!",
+        icon: "success",
+        confirmButtonText: "ยืนยัน",
+      });
     } catch (err) {
       Swal.fire({
-        title: 'ลบข้อมูลไม่สำเร็จ!',
-        icon: 'error',
-        confirmButtonText: 'ยืนยัน'
-      })
-
+        title: "ลบข้อมูลไม่สำเร็จ!",
+        icon: "error",
+        confirmButtonText: "ยืนยัน",
+      });
     } finally {
       setLoading(false);
     }
@@ -104,25 +107,32 @@ function Category() {
             {error && <p className="text-red-500">{error}</p>}
             <form onSubmit={addCategory} className="mb-4">
               <div className="mb-4">
-                <label htmlFor="category" className="block text-gray-700 text-sm font-bold mb-2">
-                  Category
-                </label>
+                <div className="flex justify-between mb-4">
+                  <label
+                    htmlFor="category"
+                    className="block text-gray-700 text-2xl font-bold mb-2"
+                  >
+                    หมวดหมู่
+                  </label>
+
+                  <button
+                    type="submit"
+                    disabled={loading}
+                    className="inline-block px-2  py-1  bg-transparent border-2 border-green-500 text-green-500 text-sm rounded-full transition-colors duration-700 transform hover:bg-green-500 hover:text-gray-100 focus:border-4 focus:border-green-300"
+                  >
+                    <AiOutlinePlus className="inline-block m-1" />
+                    เพิ่มหมวดหมู่
+                  </button>
+                </div>
                 <input
                   id="category"
                   type="text"
                   placeholder="ใส่ประเภทของหนังสือ"
                   value={categoryInput}
                   onChange={(e) => setCategoryInput(e.target.value)}
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  className="shadow appearance-none w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-[#77BA47]"
                 />
               </div>
-              <button
-                type="submit"
-                disabled={loading}
-                className="bg-blue-500 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded focus:outline-none focus:shadow-outline disabled:opacity-50"
-              >
-                Add Category
-              </button>
             </form>
             <div>
               {loading ? (
@@ -130,13 +140,16 @@ function Category() {
               ) : categoryList.length > 0 ? (
                 <ul>
                   {categoryList.map((category, index) => (
-                    <li key={category.id} className="flex justify-between items-center bg-white px-4 py-2 rounded shadow mb-2">
+                    <li
+                      key={category.id}
+                      className="flex justify-between items-center bg-white px-4 py-2 rounded shadow mb-2"
+                    >
                       <span className="text-gray-800">{category.category}</span>
                       <button
                         onClick={() => deleteCategory(category.id)}
-                        className="bg-red-500 hover:bg-red-700 text-white py-1 px-3 rounded focus:outline-none focus:shadow-outline"
+                        className="bg-red-500 hover:bg-red-700 text-white py-1 px-6  rounded-full focus:outline-none focus:shadow-outline"
                       >
-                        Delete
+                        ลบ
                       </button>
                     </li>
                   ))}
