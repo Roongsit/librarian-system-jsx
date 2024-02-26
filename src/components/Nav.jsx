@@ -45,9 +45,9 @@ function NavigationBar() {
       </div>
       {/* Mobile Menu */}
       <div className={`${isMobileMenuOpen ? 'block' : 'hidden'} md:hidden bg-purple-500`}>
-        <a href="/book" className="block py-2 px-4 text-sm hover:bg-purple-600">Book</a>
-        <a href="/member" className="block py-2 px-4 text-sm hover:bg-purple-600">Member</a>
-        <a href="/borrow_list" className="block py-2 px-4 text-sm hover:bg-purple-600">Borrow List</a>
+        <a href="/book" className="block py-2 px-4 text-sm from-[#77BA47] to-[#47BA6E]">Book</a>
+        <a href="/member" className="block py-2 px-4 text-sm from-[#77BA47] to-[#47BA6E]">Member</a>
+        <a href="/borrow_list" className="block py-2 px-4 text-sm from-[#77BA47] to-[#47BA6E]">Borrow List</a>
         <button onClick={handleLogout} className="w-full text-left py-2 px-4 text-sm text-red-500 hover:bg-purple-600">Logout</button>
       </div>
     </nav>
