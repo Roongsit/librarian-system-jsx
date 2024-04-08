@@ -25,56 +25,61 @@ function Addbook() {
   };
 
   const addBook = async (e) => {
-    e.preventDefault(); // Prevent the default form submission behavior
-    if (!bookImg) {
-      alert("Please select an image for the book");
-      return;
-    }
-
-    if (!bookID || !bookName || !bookCategory || !bookCount) {
+    e.preventDefault();
+  
+    // Check if all required fields are filled
+    if (!bookImg || !bookID || !bookName || !bookCategory || !bookCount) {
       Swal.fire({
         title: "โปรดใส่ข้อมูลให้ครบถ้วน!",
         icon: "error",
         confirmButtonText: "ยืนยัน",
       });
-
       return;
     }
-
-    const formData = new FormData();
-    formData.append('id', bookID);
-    formData.append('name', bookName);
-    formData.append('category', bookCategory);
-    formData.append('amount', bookCount);
-    formData.append('file', bookImg);
-
-    try {
-      const response = await axios.post(import.meta.env.VITE_API + '/post_book', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-      console.log(response.data);
-      setBookID("");
-      setBookName("");
-      setBookCategory("");
-      setBookCount("");
-      setBookImg(null);
-      Swal.fire({
-        title: "เพิ่มหนังสือสำเร็จ!",
-        icon: "success",
-        confirmButtonText: "ยืนยัน",
-      });
-    } catch (error) {
-      console.log(error)
-      Swal.fire({
-        title: "เพิ่มหนังสือไม่สำเร็จ!",
-        icon: "error",
-        confirmButtonText: "ยืนยัน",
-      });
-    }
+  
+    // const reader = new FileReader();
+    // reader.readAsDataURL(bookImg);
+    // reader.onload = async () => {
+    //   const base64Data = reader.result.split(',')[1]; 
+  
+      const formData = new FormData();
+      formData.append('id', bookID);
+      formData.append('name', bookName);
+      formData.append('category', bookCategory);
+      formData.append('amount', bookCount);
+      formData.append('file', bookImg); 
+  
+      try {
+        const response = await axios.post(import.meta.env.VITE_API + '/post_book', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
+  
+        // Reset form fields after successful upload
+        setBookID("");
+        setBookName("");
+        setBookCategory("");
+        setBookCount("");
+        setBookImg(null);
+  
+        // Show success message
+        Swal.fire({
+          title: "เพิ่มหนังสือสำเร็จ!",
+          icon: "success",
+          confirmButtonText: "ยืนยัน",
+        });
+      } catch (error) {
+        console.log(error);
+        Swal.fire({
+          title: "เพิ่มหนังสือไม่สำเร็จ!",
+          icon: "error",
+          confirmButtonText: "ยืนยัน",
+        });
+      // }
+    };
   };
-
+  
   return (
     <div>
       <Nav />
