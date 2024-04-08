@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+
+  db:
+    container_name: library-database-container
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: MYSQL_ROOT_PASSWORD
+      MYSQL_DATABASE: library
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    ports:
+      - "3000:3306"
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - "5002:80"
+    restart: always
+    environment:
+      PMA_HOST: db
+    depends_on:
+      - db
+
+  web-backend:
+    build: ./server
+    image: library-server_image
+    container_name: library-server-container
+    ports:
+      - "5001:5001"
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: "mysql://user:password@db/library"
+
+  web-frontend:
+    build: ./client
+    image: library-client-image
+    container_name: library-client-container
+    ports:
+      - "5000:5000"
+    depends_on:
+      - web-backend
+
+  
