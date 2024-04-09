@@ -49,11 +49,11 @@ function Borrowing() {
         setBookImg(data.bookImg);
         setBorrowing(data.borrowing);
       } else {
-        Swal.fire("No such book found!", "", "warning");
+        Swal.fire("ไม่พบหนังสือ!", "", "warning");
       }
     } catch (error) {
       console.error("Error getting book details:", error);
-      Swal.fire("Error getting book details", error.message, "error");
+      Swal.fire("เข้าถึงข้อมูลผิดพลาด", error.message, "error");
     }
   };
 

@@ -32,7 +32,7 @@ function EditBook() {
       const response = await axios.get(import.meta.env.VITE_API + "/get_category");
       setCategoryList(response.data);
     } catch (error) {
-      console.error("Error fetching categories:", error);
+      console.error("เข้าถึงข้อมูลผิดพลาด:", error);
     }
   };
 
@@ -47,40 +47,49 @@ function EditBook() {
         setBookCount(response.data.bookCount);
         setBookImg(response.data.bookImg);
       } else {
-        Swal.fire("No such book found!", "", "warning");
+        Swal.fire("ไม่พบหนังสือ!", "", "error");
       }
     } catch (error) {
-      console.error("Error getting book details:", error);
-      Swal.fire("Error getting book details", error.message, "error");
+      console.error("เข้าถึงหนังสือไม่สำเร็จ:", error);
+      Swal.fire("เข้าถึงหนังสือไม่สำเร็จ", error.message, "error");
     }
   };
 
   const updateBook = async (e) => {
     e.preventDefault();
 
-    const formData = new FormData();
-    formData.append("bookID", bookID);
-    formData.append("bookName", bookName);
-    formData.append("bookCategory", bookCategory);
-    formData.append("bookCount", bookCount);
-    // Append new image if it has been selected
-    if (newBookImg) {
-      formData.append("bookImg", newBookImg);
-    }
+    const reader = new FileReader();
+    reader.readAsDataURL(newBookImg);
+    reader.onload = async () => {
+    const base64Data = reader.result.split(',')[1]; 
 
+    // const formData = new FormData();
+    // formData.append("bookName", bookName);
+    // formData.append("bookCategory", bookCategory);
+    // formData.append("bookCount", bookCount);
+    // if (newBookImg) {
+    //   formData.append("bookImg", base64Data);
+    // }
+      
     try {
-      const response = await axios.put(import.meta.env.VITE_API + `/update_book/${bookID}`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
+      const response = await axios.put(import.meta.env.VITE_API + `/update_book/${bookID}`, {
+        // body: {
+        //   "Content-Type": "multipart/form-data",
+        // },
+        bookName : bookName,
+        bookCategory : bookCategory,
+        bookCount : bookCount,
+        bookImg : base64Data
+
       });
 
-      Swal.fire("Update Successful!", "Book details have been updated.", "success");
+      Swal.fire("แก้ไขสำเร็จ!", "ข้อมูลหนังสือทำการแก้ไข.", "สำเร็จ");
     } catch (error) {
       console.log(error)
-      console.error("Error updating book:", error);
-      Swal.fire("Update Failed!", error.response?.data?.message || "An error occurred while updating the book.", "error");
+      console.error("แก้ไขผิดพลาด: book:", error);
+      Swal.fire("แก้ไขผิดพลาด!", error.response?.data?.message || "เกิดข้อผิดพลาดขึ้นขณะแก้ไขข้อมูล.", "error");
     }
+  }
   };
 
   return (

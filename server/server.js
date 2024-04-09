@@ -4,7 +4,7 @@ import Jwt  from 'jsonwebtoken'
 import fs from 'fs'
 const secret = 'sudlorprokyung';
 import multer from 'multer'
-
+import path from 'path';
 import dotenv from 'dotenv' 
 dotenv.config();
 
@@ -12,9 +12,15 @@ const app = express();
 app.use(cors());
 app.use(express.json())
 
+const __dirname = path.dirname(new URL(import.meta.url).pathname);
+
+app.use('/server', express.static(path.join(__dirname, 'server')));
+
 const storage = multer.diskStorage({
     destination: function(req, file, cb) {
-      return cb(null, "../server/img")
+        const Path = path.resolve(__dirname, '../server/img');
+        fs.mkdirSync(Path, { recursive: true });
+        return cb(null, Path);
     },
     filename: function (req, file, cb) {
       return cb(null, `${file.originalname}`)
@@ -24,6 +30,7 @@ const storage = multer.diskStorage({
   const upload = multer({storage})
 
 import {query} from './database.js'
+
 
 app.post('/register', async (req, res) => {
   const { username, password } = req.body;
@@ -116,44 +123,51 @@ app.get('/get_book', async (req, res) => {
     }
 });
 
-app.post('/post_book', upload.single('file'), async (req, res) => {
-    const { id, name, category, amount } = req.body;
-    const file = req.file;
-    
-    if (!file) {
-        return res.status(400).send('No file uploaded');
-        console.log(file)
-    }
+// app.post('/post_book', upload.single('file'), async (req, res) => {
+//     const { id, name, category, amount } = req.body;
+//     const file = req.file;
+    // console.log(id)
+    // console.log(name)
+    // console.log(category)
+    // console.log(amount)
+    // console.log(file)
+//     if (!file) {
+//         return res.status(400).send('No file uploaded');
+//         console.log(file)
+//     }
   
+//     try {
+//         const filePath = file.path;
+        
+//         const q = 'INSERT INTO book (bookID, bookName, bookCategory, bookCount, bookImg, borrowing) VALUES (?, ?, ?, ?, ?, ?)';
+//         const values = [id, name, category, amount, filePath, 0];
+  
+//         const results = await query(q, values);
+//         res.status(201).json({ message: "Book added successfully", bookID: id });
+//     } catch (error) {
+//         console.log(error)
+//         console.error('Error during add book:', error);
+//         res.status(500).send('Internal Server Error');
+//     }
+//   });
+  
+
+app.post('/post_book', async (req, res) => {
+    const { id, name, category, amount, file } = req.body;
+
     try {
-        const imageAsBase64 = await fs.readFile(file.path, 'base64');
-        const q = 'INSERT INTO book (bookID, bookName, bookCategory, bookCount, bookImg, borrowing) VALUES (?, ?, ?, ?, ?, ?)';
-        const values = [id, name, category, amount, imageAsBase64, 0];
-  
-        const results = await query(q, values);
-        res.status(201).json({ message: "Book added successfully", bookID: id });
+      const q = 'INSERT INTO book (bookID, bookName, bookCategory, bookCount, bookImg, borrowing) VALUES (?, ?, ?, ?, ?, ?)';
+      const values = [id, name, category, amount, file, 0];
+
+      const results = await query(q, values);
+      console.log(results.data)
+      res.status(201).json({ message: "Book added successfully", bookID: id });
     } catch (error) {
         console.log(error)
-        console.error('Error during add book:', error);
-        res.status(500).send('Internal Server Error');
+      console.error('Error during add book:', error);
+      res.status(500).send('Internal Server Error');
     }
-  });
-  
-
-// app.post('/post_book', async (req, res) => {
-//     const { id, name, category, amount, file } = req.body; // Change img to file
-    
-//     try {
-//       const q = 'INSERT INTO book (bookID, bookName, bookCategory, bookCount, bookImg, borrowing) VALUES (?, ?, ?, ?, ?, ?)';
-//       const values = [id, name, category, amount, file, 0];
-
-//       const results = await query(q, values);
-//       res.status(201).json({ message: "Book added successfully", bookID: id });
-//     } catch (error) {
-//       console.error('Error during add book:', error);
-//       res.status(500).send('Internal Server Error');
-//     }
-// });
+});
 
 app.get('/get_category', async (req, res) => {
   const q = 'SELECT * FROM category';
@@ -291,7 +305,6 @@ app.get('/get_member/:memberID', async (req, res) => {
       res.status(500).send('Internal Server Error');
   }
 });
-
     
 app.get('/get_book/:bookID', async (req, res) => {
   const { bookID } = req.params;
@@ -314,14 +327,15 @@ app.get('/get_book/:bookID', async (req, res) => {
   
 app.put('/update_book/:id', async (req, res) => {
   const { id } = req.params;
-  const { bookName, bookCategory, bookCount } = req.body;
+  const { bookName, bookCategory, bookCount , bookImg} = req.body;
+    
 
-  const q = imageAsBase64 
+  const q = bookImg 
       ? 'UPDATE book SET bookName = ?, bookCategory = ?, bookCount = ?, bookImg = ? WHERE bookID = ?'
       : 'UPDATE book SET bookName = ?, bookCategory = ?, bookCount = ? WHERE bookID = ?';
 
-  const values = imageAsBase64
-      ? [bookName, bookCategory, bookCount, imageAsBase64, id]
+  const values = bookImg
+      ? [bookName, bookCategory, bookCount, bookImg, id]
       : [bookName, bookCategory, bookCount, id];
 
   try {

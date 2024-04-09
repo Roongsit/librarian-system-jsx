@@ -38,10 +38,10 @@ function EditMember() {
           memberPhone_number: response.data.membersPhone_number,
         });
       } else {
-        console.log("No such member found!");
+        console.log("ไม่พบข้อมูลสมาชิก!");
       }
     } catch (error) {
-      console.error("Error getting member data:", error);
+      console.error("ข้อมูลสมาชิกผิดพลาด:", error);
     }
   };
 
@@ -67,7 +67,7 @@ function EditMember() {
           icon: "success",
           confirmButtonText: "ยืนยัน",
         });
-        navigate("/member"); // Redirect to the member page after successful update
+        navigate("/member"); 
       }
     } catch (error) {
       Swal.fire({

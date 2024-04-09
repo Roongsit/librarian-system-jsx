@@ -20,7 +20,7 @@ function Addbook() {
       const response = await axios.get(import.meta.env.VITE_API + "/get_category");
       setCategories(response.data);
     } catch (error) {
-      console.error("Error fetching categories:", error);
+      console.error("เข้าถึงข้อมูลผิดพลาด:", error);
     }
   };
 
@@ -37,26 +37,34 @@ function Addbook() {
       return;
     }
   
-    // const reader = new FileReader();
-    // reader.readAsDataURL(bookImg);
-    // reader.onload = async () => {
-    //   const base64Data = reader.result.split(',')[1]; 
+    const reader = new FileReader();
+    reader.readAsDataURL(bookImg);
+    reader.onload = async () => {
+      const base64Data = reader.result.split(',')[1]; 
+
+      // const formData = new FormData();
+      // formData.append('id', bookID);
+      // formData.append('name', bookName);
+      // formData.append('category', bookCategory);
+      // formData.append('amount', bookCount);
+      // formData.append('file', bookImg);
+      console.log(bookID)
+      console.log(bookName)
+      console.log(bookCategory)
+      console.log(bookCount)
+      console.log(bookImg)
   
-      const formData = new FormData();
-      formData.append('id', bookID);
-      formData.append('name', bookName);
-      formData.append('category', bookCategory);
-      formData.append('amount', bookCount);
-      formData.append('file', bookImg); 
-  
+
       try {
-        const response = await axios.post(import.meta.env.VITE_API + '/post_book', formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data',
+        const response = await axios.post(import.meta.env.VITE_API + '/post_book' ,  {
+            // 'Content-Type': 'multipart/form-data',
+            id : bookID,
+            name : bookName,
+            category : bookCategory,
+            amount : bookCount,
+            file : base64Data
           },
-        });
-  
-        // Reset form fields after successful upload
+        );
         setBookID("");
         setBookName("");
         setBookCategory("");
@@ -76,7 +84,7 @@ function Addbook() {
           icon: "error",
           confirmButtonText: "ยืนยัน",
         });
-      // }
+      }
     };
   };
   
@@ -149,7 +157,7 @@ function Addbook() {
               </label>
               <input
                 id="bookCount"
-                type="number"
+                type="text"
                 placeholder="จำนวนเล่ม"
                 className="mt-1 block w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-[#77BA47]"
                 value={bookCount}

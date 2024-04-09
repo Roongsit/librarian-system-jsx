@@ -24,7 +24,7 @@ function BorrowList() {
       }));
       setBorrowList(newData);
     } catch (error) {
-      console.error('Error fetching borrowing records:', error);
+      console.error('เข้าถึงข้อมูลผิดพลาด:', error);
     }
   };
 const deleteBorrow = async (borrow_id, book_id) => {
