@@ -5,7 +5,6 @@ import "./index.css"
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { UserAuthContextProvider } from './context/UserAuthContext.jsx';
 
-import Home from "./components/Home.jsx";
 import Register from "./components/Register.jsx";
 import ProtectedRoute from "./auth/ProtectedRoute.jsx";
 import Book from "./components/Book.jsx";
@@ -26,14 +25,6 @@ const router = createBrowserRouter([
   {
     path: "/register",
     element: <Register />,
-  },
-  {
-    path: "/home",
-    element: (
-      <ProtectedRoute>
-        <Home />
-      </ProtectedRoute>
-    ),
   },
   {
     path: "/book",

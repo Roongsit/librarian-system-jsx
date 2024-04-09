@@ -83,7 +83,12 @@ function EditBook() {
 
       });
 
-      Swal.fire("แก้ไขสำเร็จ!", "ข้อมูลหนังสือทำการแก้ไข.", "สำเร็จ");
+      Swal.fire({
+        title: "แก้ไขสำเร็จ!",
+        icon: "success",
+        confirmButtonText: "ยืนยัน",
+      });
+
     } catch (error) {
       console.log(error)
       console.error("แก้ไขผิดพลาด: book:", error);

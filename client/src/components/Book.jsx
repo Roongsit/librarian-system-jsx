@@ -13,8 +13,6 @@ function Book() {
     getBooks();
   }, []);
 
-
-
   const getBooks = async () => {
     try {
       const response = await axios.get(import.meta.env.VITE_API + '/get_book');
@@ -84,7 +82,7 @@ function Book() {
                     key={index}
                     className="block p-4 rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300 ease-in-out"
                     style={{ backgroundColor: "#F3F4F6" }}
-                  >2
+                  >
                     <h1
                       className="text-center text-2xl font-semibold "
                       style={{ color: "#111827" }}
